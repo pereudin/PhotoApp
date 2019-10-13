@@ -53,6 +53,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         }
 
         @Override
+        public void setTag(Integer number) {
+            this.image.setTag(number);
+        }
+
+        @Override
         public int getPos() {
             return position;
         }

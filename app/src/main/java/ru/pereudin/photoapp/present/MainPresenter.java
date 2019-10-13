@@ -4,12 +4,17 @@ import android.util.Log;
 
 import java.util.List;
 
+import moxy.InjectViewState;
+import moxy.MvpPresenter;
+
 import ru.pereudin.photoapp.model.Data;
 import ru.pereudin.photoapp.view.IViewHolder;
+import ru.pereudin.photoapp.view.MainView;
 
-public class MainPresenter {
+@InjectViewState
+public class MainPresenter extends MvpPresenter<MainView> {
 
-    public static final String TAG = "MainPresent";
+    public static final String TAG = "MainPresenter";
     Data data = new Data();
     
     RecyclerMainPresenter recyclerMainPresenter = new RecyclerMainPresenter();
@@ -22,6 +27,7 @@ public class MainPresenter {
         @Override
         public void bindView(IViewHolder holder) {
             holder.setImage(list.get(holder.getPos()));
+            holder.setTag(holder.getPos()+1);
         }
 
         @Override
@@ -39,7 +45,8 @@ public class MainPresenter {
         int sum = data.getNum() + 1;
         data.setNum(sum);
 
+        getViewState().totalClicks(sum);
+
         Log.d(TAG, "bindView: " + sum);
     }
-
 }
